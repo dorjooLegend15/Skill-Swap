@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: skillswap_backend
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./skillswap.db
+      - SECRET_KEY=skill-swap-super-secret-production-key-change-in-prod-987654321
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/skillswap.db:/app/skillswap.db
+    networks:
+      - skillswap-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: skillswap_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - skillswap-network
+
+networks:
+  skillswap-network:
+    driver: bridge
