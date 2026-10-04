@@ -60,6 +60,8 @@ export const skillsAPI = {
 export const matchesAPI = {
   explore: (params) => api.get('/matches/explore', { params }),
   getRecommendations: () => api.get('/matches/recommendations'),
+  getSurveyOptions: () => api.get('/matches/survey-options'),
+  getSkillRecommendations: (answers) => api.post('/matches/skill-recommendations', answers),
 };
 
 export const requestsAPI = {
