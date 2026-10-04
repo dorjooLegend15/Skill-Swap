@@ -22,6 +22,7 @@ import ProfilePage from './pages/ProfilePage';
 import UserProfileDetail from './pages/UserProfileDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import SkillRecommendations from './pages/SkillRecommendations';
 
 function AppContent() {
   const [activeCallPartner, setActiveCallPartner] = useState(null);
@@ -38,6 +39,7 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
+          <Route path="/recommendations" element={<SkillRecommendations />} />
           <Route path="/chatbot" element={<ChatbotPage />} />
           <Route path="/users/:userId" element={<UserProfileDetail />} />
           

@@ -16,6 +16,7 @@ from app.api.messages import router as messages_router
 from app.api.sessions import router as sessions_router
 from app.api.chatbot import router as chatbot_router
 from app.api.websocket import router as ws_router
+from app.api.survey_recommendations import router as survey_recommendations_router
 
 # Initialize Database tables
 Base.metadata.create_all(bind=engine)
@@ -47,6 +48,7 @@ app.include_router(requests_router, prefix=settings.API_V1_STR)
 app.include_router(messages_router, prefix=settings.API_V1_STR)
 app.include_router(sessions_router, prefix=settings.API_V1_STR)
 app.include_router(chatbot_router, prefix=settings.API_V1_STR)
+app.include_router(survey_recommendations_router, prefix=settings.API_V1_STR)
 app.include_router(ws_router)
 
 @app.get("/")

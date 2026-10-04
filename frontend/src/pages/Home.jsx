@@ -149,6 +149,13 @@ const Home = () => {
           {/* Action Buttons */}
           <div className="flex items-center justify-center gap-3 text-xs font-bold">
             <Link
+              to="/recommendations"
+              className="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-700 text-white flex items-center gap-2 transition-colors animate-fade-in-up shadow-sm"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span>Танд тохирох чадвараа олох</span>
+            </Link>
+            <Link
               to="/chatbot"
               className="px-4 py-2 rounded-xl bg-white/80 hover:bg-violet-50 border border-slate-200 text-slate-700 flex items-center gap-2 transition-colors animate-fade-in-up shadow-sm"
             >

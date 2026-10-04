@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   ArrowRightLeft,
   Search,
+  Sparkles,
   Bot,
   UserCheck,
   MessageSquare,
@@ -33,6 +34,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Хайх & Match', path: '/explore', icon: Search },
+    { name: 'Чадварын зөвлөмж', path: '/recommendations', icon: Sparkles },
     { name: 'AI Туслах', path: '/chatbot', icon: Bot, highlight: true },
     {
       name: 'Хүсэлтүүд',
