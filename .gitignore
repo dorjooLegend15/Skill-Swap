@@ -26,6 +26,9 @@ backend/server.err.log
 backend/skillswap.db
 backend/uploads/
 uploads/
+# Private survey source files must never be committed.
+skillswap_data.csv
+backend/app/data/private/
 
 # ============ OS / Editors ============
 .DS_Store
