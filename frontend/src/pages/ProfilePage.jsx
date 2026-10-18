@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Save, Plus, Trash2, User, MapPin, Globe, Code2, ExternalLink } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { usersAPI, authAPI } from '../services/api';
+import { usersAPI } from '../services/api';
 import SkillBadge from '../components/SkillBadge';
 
 const PROFICIENCY_OPTIONS = [
@@ -12,7 +12,7 @@ const PROFICIENCY_OPTIONS = [
 ];
 
 const ProfilePage = () => {
-  const { user, setUser } = useAuth();
+  const { user, refreshUser } = useAuth();
   const [form, setForm] = useState({ full_name: '', headline: '', bio: '', location: '', timezone: '', github_url: '', portfolio_url: '' });
   const [skillsOffered, setSkillsOffered] = useState([]);
   const [skillsWanted, setSkillsWanted] = useState([]);
@@ -38,8 +38,7 @@ const ProfilePage = () => {
     setMessage('');
     try {
       await usersAPI.updateProfile(form);
-      const res = await authAPI.getMe();
-      setUser(res.data);
+      const updated = await refreshUser();
       setMessage('Амжилттай хадгалагдлаа!');
       setTimeout(() => setMessage(''), 3000);
     } catch (err) {
@@ -52,39 +51,36 @@ const ProfilePage = () => {
   const addOfferedSkill = async () => {
     if (!newOffered.skill_name.trim()) return;
     try {
-      await usersAPI.addSkillOffered(newOffered);
-      const res = await authAPI.getMe();
-      setUser(res.data);
-      setSkillsOffered(res.data.skills_offered);
+      await usersAPI.addOfferedSkill(newOffered);
+      const updated = await refreshUser();
+      setSkillsOffered(updated?.skills_offered || []);
       setNewOffered({ skill_name: '', proficiency_level: 'intermediate' });
     } catch {}
   };
 
   const removeOfferedSkill = async (skillId) => {
     try {
-      await usersAPI.removeSkillOffered(skillId);
-      const res = await authAPI.getMe();
-      setUser(res.data);
-      setSkillsOffered(res.data.skills_offered);
+      await usersAPI.deleteOfferedSkill(skillId);
+      const updated = await refreshUser();
+      setSkillsOffered(updated?.skills_offered || []);
     } catch {}
   };
 
   const addWantedSkill = async () => {
     if (!newWanted.skill_name.trim()) return;
     try {
-      await usersAPI.addSkillWanted(newWanted);
-      const res = await authAPI.getMe();
-      setUser(res.data);
-      setSkillsWanted(res.data.skills_wanted);
+      await usersAPI.addWantedSkill(newWanted);
+      const updated = await refreshUser();
+      setSkillsWanted(updated?.skills_wanted || []);
+      setNewWanted({ skill_name: '', target_level: 'beginner' });
     } catch {}
   };
 
   const removeWantedSkill = async (skillId) => {
     try {
-      await usersAPI.removeSkillWanted(skillId);
-      const res = await authAPI.getMe();
-      setUser(res.data);
-      setSkillsWanted(res.data.skills_wanted);
+      await usersAPI.deleteWantedSkill(skillId);
+      const updated = await refreshUser();
+      setSkillsWanted(updated?.skills_wanted || []);
     } catch {}
   };
 

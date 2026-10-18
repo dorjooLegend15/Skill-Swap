@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, Star, Clock } from 'lucide-react';
 import { sessionsAPI } from '../services/api';
 
@@ -7,7 +7,7 @@ const SessionsPage = () => {
   const [loading, setLoading] = useState(false);
   const [reviewForm, setReviewForm] = useState({ sessionId: null, rating: 5, comment: '' });
 
-  useState(() => {
+  useEffect(() => {
     setLoading(true);
     sessionsAPI.getSessions()
       .then((res) => setSessions(res.data))
@@ -18,7 +18,7 @@ const SessionsPage = () => {
   const submitReview = async () => {
     if (!reviewForm.sessionId) return;
     try {
-      await sessionsAPI.submitReview({
+      await sessionsAPI.leaveReview({
         session_id: reviewForm.sessionId,
         rating: reviewForm.rating,
         comment: reviewForm.comment

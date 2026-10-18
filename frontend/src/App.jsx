@@ -62,6 +62,15 @@ function AppContent() {
           />
 
           <Route
+            path="/chat/:partnerId"
+            element={
+              <ProtectedRoute>
+                <ChatPage />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
             path="/sessions"
             element={
               <ProtectedRoute>
